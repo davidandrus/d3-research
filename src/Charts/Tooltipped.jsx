@@ -25,7 +25,7 @@ export default class Tooltipped extends React.Component {
 
     const activatedDataIndex = Math.round(getScaleX(this.props).invert(x));
     this.tooltipContent.textContent = this.props.data[activatedDataIndex];
-    // this.setSelectedBar(activatedDataIndex);
+    this.props.onUpdate(activatedDataIndex);
    
     d3Select(this.mouseLine)
       .attrs({
@@ -59,7 +59,7 @@ export default class Tooltipped extends React.Component {
         transform: `translate(-10000)`,
       });
       
-      // this.setSelectedBar(-1);
+      this.props.onUpdate(-1);
   }
 
   performantMouseMove = e => {

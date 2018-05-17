@@ -8,10 +8,12 @@ import { extent } from 'd3-array';
 import Tooltipped from './Tooltipped';
 import Bars from './Bars';
 import AxisLeft from './AxisLeft';
+import AxisBottom from './AxisBottom';
 
 const yAxisWidth = 50;
 const xAxisHeight = 50;
 const topPadding = 20;
+const rightPadding = 20;
 
 export default class BarChart extends React.Component {
   state = {
@@ -26,7 +28,7 @@ export default class BarChart extends React.Component {
         if (i === activatedDataIndex) {
           return { fill: 'red' }
         } else {
-          return {fill: 'blue' }
+          return { fill: 'blue' }
         }
       })
   }
@@ -38,12 +40,17 @@ export default class BarChart extends React.Component {
       width,
     } = this.props;
 
-    const contentWidth = width - yAxisWidth;
+    const contentWidth = width - yAxisWidth - rightPadding;
     const contentHeight = height - topPadding - xAxisHeight;
+    const xAxisTop = contentHeight + topPadding;
 
     const scaleY = scaleLinear()
       .domain(extent(data))
       .range([0, contentHeight]);
+
+    const scaleX = scaleLinear()
+      .domain([0, data.length])
+      .range([0, contentWidth]);
 
     return (
       <svg
@@ -60,6 +67,7 @@ export default class BarChart extends React.Component {
         </g>
         <g transform={`translate(${yAxisWidth}, ${topPadding})`}>
           <Tooltipped
+            onUpdate={this.setSelectedBar}
             data={data}
             height={contentHeight} 
             width={contentWidth}
@@ -71,6 +79,13 @@ export default class BarChart extends React.Component {
               width={contentWidth}
             />
           </Tooltipped>
+        </g>
+        <g transform={`translate(${yAxisWidth}, ${xAxisTop})`}>
+          <AxisBottom
+            data={data}
+            scale={scaleX}
+            width={contentWidth}
+          />
         </g>
       </svg>
     );
