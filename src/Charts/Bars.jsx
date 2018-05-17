@@ -9,7 +9,7 @@ function getAttrs(datum, index, props) {
     scale,
     width,
   } = props;
-  const calculatedWidth = Math.floor(width / data.length) ;
+  const calculatedWidth = width / data.length ;
 
   return {
     fill: 'blue',
