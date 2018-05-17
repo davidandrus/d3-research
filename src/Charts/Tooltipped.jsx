@@ -1,5 +1,5 @@
 import React from 'react';
-
+import polyD3Multi from 'd3-selection-multi'; // polyfill to allow for attrs amongst other things
 import { select as d3Select } from 'd3-selection';
 import { scaleLinear } from 'd3-scale';
 

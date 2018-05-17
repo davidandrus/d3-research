@@ -1,12 +1,12 @@
 import React from 'react';
  
 // not used just adds multi functionality kinda like a polyfill - will be better somewhere else
-import polyD3Multi from 'd3-selection-multi';
 import { select as d3Select } from 'd3-selection';
 import { scaleLinear } from 'd3-scale';
 import { extent } from 'd3-array';
 import { axisLeft } from 'd3-axis';
 import Tooltipped from './Tooltipped';
+import Bars from './Bars';
 
 function getScaleY(props) {
   const {
@@ -30,22 +30,6 @@ function getScaleX(props) {
     .range([0, width]);
 }
 
-function getAttrs(datum, index, scale, props) {
-  const {
-    data,
-    height,
-  } = props;
-  const width = Math.floor(props.width / data.length) ;
-
-  return {
-    fill: 'blue',
-    x: index * width,
-    y: height  - scale(datum),
-    width: width,
-    height: scale(datum),
-  };
-}
-
 export default class BarChart extends React.Component {
 
   state = {
@@ -54,19 +38,6 @@ export default class BarChart extends React.Component {
 
   componentDidMount() {
     this.renderAxis();
-  }
-
-  shouldComponentUpdate() {
-    return false;
-  }
-
-  componentWillReceiveProps(props) {
-    const scale = getScaleY(props);
-    const that = this;
-    d3Select(this.svg)
-      .selectAll('rect')
-      .data(props.data)
-      .attrs((d, i) => getAttrs(d, i, scale, props));
   }
 
   // @TODO - not currently working
@@ -108,13 +79,12 @@ export default class BarChart extends React.Component {
           height={height} 
           width={width}
         >
-          {data.map((point, index) => (
-            <rect
-              className="bar"
-              {...getAttrs(point, index, scale, this.props)}
-              key={index}
-            />
-          ))}
+          <Bars
+            data={data}
+            scale={scale}
+            height={height}
+            width={width}
+          />
         </Tooltipped>
       </svg>
     );
