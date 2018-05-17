@@ -3,6 +3,8 @@ import polyD3Multi from 'd3-selection-multi'; // polyfill to allow for attrs amo
 import { select as d3Select } from 'd3-selection';
 import { scaleLinear } from 'd3-scale';
 
+import TooltipContent from './TooltipContent';
+
 function getScaleX(props) {
   const {
     data,
@@ -24,7 +26,7 @@ export default class Tooltipped extends React.Component {
     var x = xPos - bounds.left;
 
     const activatedDataIndex = Math.round(getScaleX(this.props).invert(x));
-    this.tooltipContent.textContent = this.props.data[activatedDataIndex];
+    // this.tooltipContent.textContent = this.props.data[activatedDataIndex];
     this.props.onUpdate(activatedDataIndex);
    
     d3Select(this.mouseLine)
@@ -38,9 +40,10 @@ export default class Tooltipped extends React.Component {
         y2: this.props.height
       });
 
+    // should be handled elsewhere probably
     const xTrans = x < this.props.width / 2 
       ? x + 20
-      : x - 200 - 20;
+      : x - 300 - 20;
 
     d3Select(this.tooltip)
       .attrs({
@@ -76,15 +79,8 @@ export default class Tooltipped extends React.Component {
         <g>{this.props.children}</g>
         <line ref={node => this.mouseLine = node} />
         <g ref={node => { this.tooltip = node; }} transform="translate(-10000)">
-         <rect 
-           fill='red'
-           height={200}
-           width={200}
-         />
-         <foreignObject width="100" height="50">
-           <p ref={node => this.tooltipContent = node}></p>
-         </foreignObject>
-       </g>
+          <TooltipContent />
+        </g>
         <g
           ref={node => {this.mouseLayer = node; }}
           onMouseMove={this.performantMouseMove}

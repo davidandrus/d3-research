@@ -69,7 +69,7 @@ export default class BarChart extends React.Component {
           <Tooltipped
             onUpdate={this.setSelectedBar}
             data={data}
-            height={contentHeight} 
+            height={contentHeight}
             width={contentWidth}
           >
             <Bars
