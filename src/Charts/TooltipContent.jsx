@@ -1,6 +1,5 @@
 import React from 'react';
 
-const height = 200;
 const tooltipWidth = 300;
 const headerHeight = 30;
 const outerPadding = 10;
@@ -30,11 +29,14 @@ const data = [{
   label: 'man dude',
 }]
 
-export default function TooltipContent() {
+export default function TooltipContent({ height }) {
+  const ttHeight = 42 + (42 * data.length) + 5;
+  const transformY = ((height - ttHeight) / 2) + 20;
+
   return (
-    <g>
+    <g transform={`translate(0, ${transformY})`}>
       <rect
-        height={height}
+        height={ttHeight}
         fill='white'
         fillOpacity='0.9'
         stroke='rgba(0, 0, 0, .1)'

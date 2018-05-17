@@ -79,7 +79,7 @@ export default class Tooltipped extends React.Component {
         <g>{this.props.children}</g>
         <line ref={node => this.mouseLine = node} />
         <g ref={node => { this.tooltip = node; }} transform="translate(-10000)">
-          <TooltipContent />
+          <TooltipContent height={height} />
         </g>
         <g
           ref={node => {this.mouseLayer = node; }}
