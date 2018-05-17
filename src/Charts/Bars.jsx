@@ -27,7 +27,7 @@ export default class Bars extends React.Component {
 
   componentWillReceiveProps(props) {
     const that = this;
-    d3Select(this.svg)
+    d3Select(this.group)
       .selectAll('rect')
       .data(props.data)
       .attrs((d, i) => getAttrs(d, i, props));
@@ -37,7 +37,7 @@ export default class Bars extends React.Component {
     const { data } = this.props;
 
     return (
-      <g>
+      <g ref={node => { this.group = node; }}>
         {data.map((point, index) => (
           <rect
             className="bar"
