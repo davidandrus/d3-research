@@ -7,12 +7,13 @@ function getAttrs(datum, index, props) {
     data,
     height,
     scale,
+    selectedIndex,
     width,
   } = props;
   const calculatedWidth = width / data.length ;
 
   return {
-    fill: 'blue',
+    fill: selectedIndex === index ? 'red' : 'blue',
     x: index * calculatedWidth,
     y: height  - scale(datum),
     width: calculatedWidth,

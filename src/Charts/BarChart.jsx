@@ -16,29 +16,23 @@ const topPadding = 20;
 const rightPadding = 20;
 
 export default class BarChart extends React.Component {
-  state = {
-    currentSelection: null,
-  }
+  state = { activeDataIndex: -1 }
 
-  // @TODO - not currently working
-  setSelectedBar = activatedDataIndex => {
-    d3Select(this.svg)
-      .selectAll('rect.bar')
-      .attrs((d, i) => {
-        if (i === activatedDataIndex) {
-          return { fill: 'red' }
-        } else {
-          return { fill: 'blue' }
-        }
-      })
+  setSelectedBar = activeDataIndex => {
+    this.setState({ activeDataIndex })
   }
 
   render() {
     const {
-      data,
-      height,
-      width,
-    } = this.props;
+      props: {
+        data,
+        height,
+        width,
+      },
+      state: {
+        activeDataIndex,
+      }
+    } = this;
 
     const contentWidth = width - yAxisWidth - rightPadding;
     const contentHeight = height - topPadding - xAxisHeight;
@@ -76,6 +70,7 @@ export default class BarChart extends React.Component {
               data={data}
               scale={scaleY}
               height={contentHeight}
+              selectedIndex={activeDataIndex}
               width={contentWidth}
             />
           </Tooltipped>
