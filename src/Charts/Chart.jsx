@@ -69,6 +69,7 @@ export default class BarChart extends React.Component {
               data,
               height: contentHeight,
               scale: scaleY,
+              scaleX,
               selectedIndex: activeDataIndex,
               width: contentWidth,
             })}

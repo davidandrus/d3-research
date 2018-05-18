@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import BarChart from './Charts/BarChart';
+import LineChart from './Charts/LineChart';
 
 import range from 'lodash/range';
 import random from 'lodash/random';
@@ -23,6 +24,11 @@ class App extends Component {
       <div>
         <BarChart
           data={this.state.data}
+          height={500}
+          width={1200}
+        />
+        <LineChart
+          data={this.state.data.slice(0, 31)}
           height={500}
           width={1200}
         />
