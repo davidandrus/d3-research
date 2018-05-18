@@ -2,7 +2,7 @@ import React from 'react';
  
 // not used just adds multi functionality kinda like a polyfill - will be better somewhere else
 import { select as d3Select } from 'd3-selection';
-import { scaleLinear } from 'd3-scale';
+import { scaleLinear } from '@vx/scale';
 import { extent } from 'd3-array';
 
 import Tooltipped from './Tooltipped';
@@ -38,26 +38,27 @@ export default class BarChart extends React.Component {
     const contentHeight = height - topPadding - xAxisHeight;
     const xAxisTop = contentHeight + topPadding;
 
-    const scaleY = scaleLinear()
-      .domain(extent(data))
-      .range([0, contentHeight]);
-
-    const scaleX = scaleLinear()
-      .domain([0, data.length])
-      .range([0, contentWidth]);
+    const xScale = scaleLinear({
+      domain: [0, data.length - 1],
+      rangeRound: [0, contentWidth],
+    });
+    const yScale = scaleLinear({
+      domain: extent(data),
+      rangeRound: [0, contentHeight],
+    });
 
     return (
       <svg
         height={height}
         width={width}
       >
-        <g transform={`translate(0, ${topPadding})`} >
+        {/* <g transform={`translate(0, ${topPadding})`} >
           <AxisLeft
             data={data}
             scale={scaleY}
             width={yAxisWidth}
           />
-        </g>
+        </g> */}
         <g transform={`translate(${yAxisWidth}, ${topPadding})`}>
           <Tooltipped
             onUpdate={this.setSelectedBar}
@@ -68,20 +69,20 @@ export default class BarChart extends React.Component {
             {React.createElement(this.props.renderer, {
               data,
               height: contentHeight,
-              scale: scaleY,
-              scaleX,
+              xScale,
+              yScale,
               selectedIndex: activeDataIndex,
               width: contentWidth,
             })}
           </Tooltipped>
         </g>
-        <g transform={`translate(${yAxisWidth}, ${xAxisTop})`}>
+        {/* <g transform={`translate(${yAxisWidth}, ${xAxisTop})`}>
           <AxisBottom
             data={data}
             scale={scaleX}
             width={contentWidth}
           />
-        </g>
+        </g> */}
       </svg>
     );
   }

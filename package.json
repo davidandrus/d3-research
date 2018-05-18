@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@vx/group": "0.0.161",
+    "@vx/scale": "0.0.161",
+    "@vx/shape": "0.0.162",
     "d3": "^5.4.0",
     "d3-selection-multi": "^1.0.1",
     "lodash": "^4.17.10",
