@@ -7,28 +7,44 @@ import LineChart from './Charts/LineChart';
 import range from 'lodash/range';
 import random from 'lodash/random';
 
-function getUpdatedData() {
-  return range(0, 600).map(() => random(0, 100));
+function getUpdatedData(len, upperBound = 100) {
+  return range(0, len + 1).map(() => random(0, upperBound));
 }
+
+const getBarData = () => getUpdatedData(600);
+const getLineData = () => range(0, 7).map(() => getUpdatedData(30));
+
 class App extends Component {
   state = {
-    data: getUpdatedData(),
+    barData: getBarData(),
+    lineData: getLineData()
   }
 
   updateData = () => {
-    this.setState({ data: getUpdatedData() });
+    this.setState({
+      barData: getBarData(),
+      lineData: getLineData()
+    });
   }
 
   render() { 
     return (
       <div>
         <BarChart
-          data={this.state.data}
+          data={this.state.barData}
           height={500}
           width={1200}
         />
         <LineChart
-          data={this.state.data.slice(0, 31)}
+          colorMap={[
+            'blue',
+            'red',
+            'orange',
+            'green',
+            'yellow',
+            'pink'
+          ]}
+          data={this.state.lineData}
           height={500}
           width={1200}
         />

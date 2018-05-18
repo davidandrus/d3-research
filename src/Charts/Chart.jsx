@@ -5,7 +5,9 @@ import { scaleLinear } from '@vx/scale';
 import { extent } from 'd3-array';
 import { Group } from '@vx/group';
 import { AxisBottom, AxisLeft } from '@vx/axis';
+import flatten from 'lodash/flatten';
 
+import { dataIsDeep } from './helpers'
 import Tooltipped from './Tooltipped';
 import Bars from './Bars';
 
@@ -24,6 +26,7 @@ export default class BarChart extends React.Component {
   render() {
     const {
       props: {
+        colorMap,
         data,
         height,
         renderer,
@@ -36,13 +39,15 @@ export default class BarChart extends React.Component {
     const contentWidth = width - yAxisWidth - rightPadding;
     const contentHeight = height - topPadding - xAxisHeight;
     const xAxisTop = contentHeight + topPadding;
+    const dataLength = dataIsDeep(data) ? data[0].length : data.length;
+    const dataExtent = extent(flatten(data));
 
     const xScale = scaleLinear({
-      domain: [0, data.length - 1],
+      domain: [0, dataLength - 1],
       rangeRound: [0, contentWidth],
     });
     const yScale = scaleLinear({
-      domain: extent(data),
+      domain: dataExtent,
       rangeRound: [contentHeight, 0],
     });
 
@@ -65,6 +70,7 @@ export default class BarChart extends React.Component {
             width={contentWidth}
           >
             {React.createElement(this.props.renderer, {
+              colorMap,
               data,
               height: contentHeight,
               xScale,
