@@ -1,14 +1,15 @@
 import React from 'react';
  
 // not used just adds multi functionality kinda like a polyfill - will be better somewhere else
-import { select as d3Select } from 'd3-selection';
-import { scaleLinear } from 'd3-scale';
+import { scaleLinear } from '@vx/scale';
 import { extent } from 'd3-array';
+import { Group } from '@vx/group';
+import { AxisBottom, AxisLeft } from '@vx/axis';
+import flatten from 'lodash/flatten';
 
+import { dataIsDeep } from './helpers'
 import Tooltipped from './Tooltipped';
 import Bars from './Bars';
-import AxisLeft from './AxisLeft';
-import AxisBottom from './AxisBottom';
 
 const yAxisWidth = 50;
 const xAxisHeight = 50;
@@ -25,6 +26,7 @@ export default class BarChart extends React.Component {
   render() {
     const {
       props: {
+        colorMap,
         data,
         height,
         renderer,
@@ -37,28 +39,30 @@ export default class BarChart extends React.Component {
     const contentWidth = width - yAxisWidth - rightPadding;
     const contentHeight = height - topPadding - xAxisHeight;
     const xAxisTop = contentHeight + topPadding;
+    const dataLength = dataIsDeep(data) ? data[0].length : data.length;
+    const dataExtent = extent(flatten(data));
 
-    const scaleY = scaleLinear()
-      .domain(extent(data))
-      .range([0, contentHeight]);
-
-    const scaleX = scaleLinear()
-      .domain([0, data.length])
-      .range([0, contentWidth]);
+    const xScale = scaleLinear({
+      domain: [0, dataLength - 1],
+      rangeRound: [0, contentWidth],
+    });
+    const yScale = scaleLinear({
+      domain: dataExtent,
+      rangeRound: [contentHeight, 0],
+    });
 
     return (
       <svg
         height={height}
         width={width}
       >
-        <g transform={`translate(0, ${topPadding})`} >
+        <Group top={topPadding}>
           <AxisLeft
-            data={data}
-            scale={scaleY}
-            width={yAxisWidth}
+            scale={yScale}
+            left={yAxisWidth}
           />
-        </g>
-        <g transform={`translate(${yAxisWidth}, ${topPadding})`}>
+        </Group>
+        <Group top={topPadding} left={yAxisWidth}>
           <Tooltipped
             onUpdate={this.setSelectedBar}
             data={data}
@@ -66,22 +70,22 @@ export default class BarChart extends React.Component {
             width={contentWidth}
           >
             {React.createElement(this.props.renderer, {
+              colorMap,
               data,
               height: contentHeight,
-              scale: scaleY,
-              scaleX,
+              xScale,
+              yScale,
               selectedIndex: activeDataIndex,
               width: contentWidth,
             })}
           </Tooltipped>
-        </g>
-        <g transform={`translate(${yAxisWidth}, ${xAxisTop})`}>
-          <AxisBottom
-            data={data}
-            scale={scaleX}
-            width={contentWidth}
-          />
-        </g>
+        </Group>
+        <Group
+          left={yAxisWidth}
+          top={xAxisTop}
+        >
+          <AxisBottom scale={xScale} />
+        </Group>
       </svg>
     );
   }

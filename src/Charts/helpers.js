@@ -1,0 +1,1 @@
+export const dataIsDeep = data => data[0] && Array.isArray(data[0]);
