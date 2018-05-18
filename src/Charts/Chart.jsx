@@ -4,12 +4,10 @@ import React from 'react';
 import { scaleLinear } from '@vx/scale';
 import { extent } from 'd3-array';
 import { Group } from '@vx/group';
-import { AxisLeft } from '@vx/axis';
+import { AxisBottom, AxisLeft } from '@vx/axis';
 
 import Tooltipped from './Tooltipped';
 import Bars from './Bars';
-// import AxisLeft from './AxisLeft';
-import AxisBottom from './AxisBottom';
 
 const yAxisWidth = 50;
 const xAxisHeight = 50;
@@ -53,13 +51,6 @@ export default class BarChart extends React.Component {
         height={height}
         width={width}
       >
-        {/* <g transform={`translate(0, ${topPadding})`} >
-          <AxisLeft
-            data={data}
-            scale={scaleY}
-            width={yAxisWidth}
-          />
-        </g> */}
         <Group top={topPadding}>
           <AxisLeft
             scale={yScale}
@@ -83,13 +74,12 @@ export default class BarChart extends React.Component {
             })}
           </Tooltipped>
         </Group>
-        {/* <g transform={`translate(${yAxisWidth}, ${xAxisTop})`}>
-          <AxisBottom
-            data={data}
-            scale={scaleX}
-            width={contentWidth}
-          />
-        </g> */}
+        <Group
+          left={yAxisWidth}
+          top={xAxisTop}
+        >
+          <AxisBottom scale={xScale} />
+        </Group>
       </svg>
     );
   }
