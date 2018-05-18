@@ -1,13 +1,14 @@
 import React from 'react';
  
 // not used just adds multi functionality kinda like a polyfill - will be better somewhere else
-import { select as d3Select } from 'd3-selection';
 import { scaleLinear } from '@vx/scale';
 import { extent } from 'd3-array';
+import { Group } from '@vx/group';
+import { AxisLeft } from '@vx/axis';
 
 import Tooltipped from './Tooltipped';
 import Bars from './Bars';
-import AxisLeft from './AxisLeft';
+// import AxisLeft from './AxisLeft';
 import AxisBottom from './AxisBottom';
 
 const yAxisWidth = 50;
@@ -44,7 +45,7 @@ export default class BarChart extends React.Component {
     });
     const yScale = scaleLinear({
       domain: extent(data),
-      rangeRound: [0, contentHeight],
+      rangeRound: [contentHeight, 0],
     });
 
     return (
@@ -59,7 +60,13 @@ export default class BarChart extends React.Component {
             width={yAxisWidth}
           />
         </g> */}
-        <g transform={`translate(${yAxisWidth}, ${topPadding})`}>
+        <Group top={topPadding}>
+          <AxisLeft
+            scale={yScale}
+            left={yAxisWidth}
+          />
+        </Group>
+        <Group top={topPadding} left={yAxisWidth}>
           <Tooltipped
             onUpdate={this.setSelectedBar}
             data={data}
@@ -75,7 +82,7 @@ export default class BarChart extends React.Component {
               width: contentWidth,
             })}
           </Tooltipped>
-        </g>
+        </Group>
         {/* <g transform={`translate(${yAxisWidth}, ${xAxisTop})`}>
           <AxisBottom
             data={data}

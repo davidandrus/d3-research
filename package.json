@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@vx/axis": "0.0.162",
     "@vx/group": "0.0.161",
     "@vx/scale": "0.0.161",
     "@vx/shape": "0.0.162",
