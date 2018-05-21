@@ -1,11 +1,11 @@
 import React from 'react';
  
-import Chart from './Chart';
+import ResponsiveChart from './ResponsiveChart';
 import Lines from './Lines';
 
 export default function LineChart(props) {
   return (
-    <Chart
+    <ResponsiveChart
       {...props}
       renderer={Lines}
     />

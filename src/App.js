@@ -11,7 +11,7 @@ function getUpdatedData(len, upperBound = 100) {
   return range(0, len + 1).map(() => random(0, upperBound));
 }
 
-const getBarData = () => getUpdatedData(600);
+const getBarData = () => getUpdatedData(300);
 const getLineData = () => range(0, 7).map(() => getUpdatedData(30));
 
 class App extends Component {

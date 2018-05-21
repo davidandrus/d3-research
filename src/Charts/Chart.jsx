@@ -59,7 +59,7 @@ export default class Chart extends React.Component {
           <AxisLeft
             scale={yScale}
             left={yAxisWidth}
-            ticks={5}
+            numTicks={5}
           />
         </Group>
         <Group 
