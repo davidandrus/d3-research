@@ -26,7 +26,6 @@ export default class Tooltipped extends React.Component {
     var x = xPos - bounds.left;
 
     const activatedDataIndex = Math.round(getScaleX(this.props).invert(x));
-    // this.tooltipContent.textContent = this.props.data[activatedDataIndex];
     this.props.onUpdate(activatedDataIndex);
    
     d3Select(this.mouseLine)

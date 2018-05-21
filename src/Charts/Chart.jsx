@@ -1,11 +1,9 @@
 import React from 'react';
- 
-// not used just adds multi functionality kinda like a polyfill - will be better somewhere else
 import { scaleLinear } from '@vx/scale';
-import { extent } from 'd3-array';
 import { Group } from '@vx/group';
 import { AxisBottom, AxisLeft } from '@vx/axis';
 import flatten from 'lodash/flatten';
+import { extent } from 'd3-array';
 
 import { dataIsDeep } from './helpers'
 import Tooltipped from './Tooltipped';
@@ -16,10 +14,11 @@ const xAxisHeight = 50;
 const topPadding = 20;
 const rightPadding = 20;
 
-export default class BarChart extends React.Component {
+export default class Chart extends React.Component {
   state = { activeDataIndex: -1 }
 
   setSelectedBar = activeDataIndex => {
+    // @TODO - this is currently not very performant - figure out
     this.setState({ activeDataIndex })
   }
 
@@ -60,9 +59,13 @@ export default class BarChart extends React.Component {
           <AxisLeft
             scale={yScale}
             left={yAxisWidth}
+            ticks={5}
           />
         </Group>
-        <Group top={topPadding} left={yAxisWidth}>
+        <Group 
+          left={yAxisWidth}
+          top={topPadding}
+        >
           <Tooltipped
             onUpdate={this.setSelectedBar}
             data={data}
