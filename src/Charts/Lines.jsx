@@ -19,7 +19,7 @@ export default function Lines({ colorMap, data, fillArea, xScale, yScale }){
           data={d}
           fill={getFillColor(colorMap[i])}
           stroke={colorMap[i]}
-          strokeWidth={2}
+          strokeWidth={1}
           key={i}
           x={datum => datum.index}
           y={datum => datum.point}

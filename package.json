@@ -8,6 +8,7 @@
     "@vx/responsive": "0.0.161",
     "@vx/scale": "0.0.161",
     "@vx/shape": "0.0.162",
+    "@vx/tooltip": "0.0.163",
     "color": "^3.0.0",
     "d3": "^5.4.0",
     "d3-selection-multi": "^1.0.1",
