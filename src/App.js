@@ -12,7 +12,7 @@ function getUpdatedData(len, upperBound = 100) {
 }
 
 const getBarData = () => getUpdatedData(300);
-const getLineData = () => range(0, 7).map(() => getUpdatedData(30));
+const getLineData = () => range(0, 1).map(() => getUpdatedData(30));
 
 class App extends Component {
   state = {
@@ -30,11 +30,7 @@ class App extends Component {
   render() { 
     return (
       <div>
-        <BarChart
-          data={this.state.barData}
-          height={500}
-          width={1200}
-        />
+
         <LineChart
           colorMap={[
             'blue',
@@ -45,6 +41,12 @@ class App extends Component {
             'pink'
           ]}
           data={this.state.lineData}
+          fillArea={true}
+          height={500}
+          width={1200}
+        />
+        <BarChart
+          data={this.state.barData}
           height={500}
           width={1200}
         />

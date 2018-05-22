@@ -5,7 +5,7 @@ import { AxisBottom, AxisLeft } from '@vx/axis';
 import flatten from 'lodash/flatten';
 import { extent } from 'd3-array';
 
-import { dataIsDeep } from './helpers'
+import { getMultiChartDataLength } from './helpers'
 import Tooltipped from './Tooltipped';
 import Bars from './Bars';
 
@@ -27,6 +27,7 @@ export default class Chart extends React.Component {
       props: {
         colorMap,
         data,
+        fillArea,
         height,
         renderer,
         width,
@@ -38,7 +39,7 @@ export default class Chart extends React.Component {
     const contentWidth = width - yAxisWidth - rightPadding;
     const contentHeight = height - topPadding - xAxisHeight;
     const xAxisTop = contentHeight + topPadding;
-    const dataLength = dataIsDeep(data) ? data[0].length : data.length;
+    const dataLength = getMultiChartDataLength(data);
     const dataExtent = extent(flatten(data));
 
     const xScale = scaleLinear({
@@ -72,9 +73,11 @@ export default class Chart extends React.Component {
             height={contentHeight}
             width={contentWidth}
           >
+            {/* this is a bit gross can probably just pass props through here */}
             {React.createElement(this.props.renderer, {
               colorMap,
               data,
+              fillArea,
               height: contentHeight,
               xScale,
               yScale,

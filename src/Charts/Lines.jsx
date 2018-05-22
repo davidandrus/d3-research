@@ -1,31 +1,25 @@
 import React from 'react';
+import Color from 'color';
 
 import { Group } from '@vx/group';
-import { LinePath } from '@vx/shape';
+import { AreaClosed, LinePath } from '@vx/shape';
 
-import { dataIsDeep } from './helpers';
+import { transformMultiChartData } from './helpers';
+function getFillColor(color) {
+  return Color(color).alpha(.5).rgb().string();
+}
+export default function Lines({ colorMap, data, fillArea, xScale, yScale }){
 
-export default function Lines({ colorMap, data, xScale, yScale }){
+  const ChartComponent = fillArea === true ? AreaClosed : LinePath;
   
-  let dataArr = dataIsDeep(data)
-    ? data
-    : [data];
-  
-  /**
-   * this is gross, but vx doesn't call x or y functions with index
-   * https://github.com/hshoff/vx/issues/295
-   */
-  const dataTransformed = dataArr.map(arr => arr.map((point,index) => ({
-    point,
-    index,
-  })));
-
   return (
     <Group>
-      {dataTransformed.map((d, i) => (
-        <LinePath
+      {transformMultiChartData(data).map((d, i) => (
+        <ChartComponent
           data={d}
+          fill={getFillColor(colorMap[i])}
           stroke={colorMap[i]}
+          strokeWidth={2}
           key={i}
           x={datum => datum.index}
           y={datum => datum.point}
