@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@vx/axis": "0.0.162",
+    "@vx/event": "0.0.161",
     "@vx/group": "0.0.161",
     "@vx/responsive": "0.0.161",
     "@vx/scale": "0.0.161",
