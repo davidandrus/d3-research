@@ -62,8 +62,9 @@ export default function Chart(WrappedComponent) {
             height={contentHeight}
             left={yAxisWidth}
             top={topPadding}
-            xScale={xScale}
             tooltipComponent={TooltipContent}
+            xScale={xScale}
+            yScale={yScale}
             width={contentWidth}
           />
           <svg

@@ -23,6 +23,7 @@ class TooltipLayer extends React.Component {
       tooltipLeft,
       tooltipOpen,
       xScale,
+      yScale,
     } = this.props;
 
     this.lastX = xPos;
@@ -37,6 +38,8 @@ class TooltipLayer extends React.Component {
           current: data.map(chunk => chunk[nearestIndex]),
           data,
           index: nearestIndex,
+          xScale,
+          yScale,
         }
       });
     }
