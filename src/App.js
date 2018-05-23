@@ -59,12 +59,11 @@ class App extends Component {
           height={500}
           width={1200}
         />
-        {/*
         <BarChart
           data={this.state.barData}
           height={500}
           width={1200}
-        /> */}
+        />
 
         <button onClick={this.updateData}>updateData</button>
       </div>
