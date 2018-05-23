@@ -31,7 +31,21 @@ class App extends Component {
   render() { 
     return (
       <div>
-        <VXTooltipTest
+        {/* <VXTooltipTest
+          colorMap={[
+            'blue',
+            'red',
+            'orange',
+            'green',
+            'yellow',
+            'pink'
+          ]}
+          data={this.state.lineData}
+          fillArea={true}
+          height={500}
+          width={1200}
+        /> */}
+        <LineChart
           colorMap={[
             'blue',
             'red',
@@ -45,20 +59,7 @@ class App extends Component {
           height={500}
           width={1200}
         />
-        {/* <LineChart
-          colorMap={[
-            'blue',
-            'red',
-            'orange',
-            'green',
-            'yellow',
-            'pink'
-          ]}
-          data={this.state.lineData}
-          fillArea={true}
-          height={500}
-          width={1200}
-        />
+        {/*
         <BarChart
           data={this.state.barData}
           height={500}

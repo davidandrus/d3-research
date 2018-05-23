@@ -4,6 +4,7 @@ import { Group } from '@vx/group';
 import { AxisBottom, AxisLeft } from '@vx/axis';
 import flatten from 'lodash/flatten';
 import { extent } from 'd3-array';
+import { withParentSize } from '@vx/responsive';
 
 import { getMultiChartDataLength } from './helpers'
 import Tooltipped from './Tooltipped';
@@ -14,7 +15,7 @@ const xAxisHeight = 50;
 const topPadding = 20;
 const rightPadding = 20;
 
-export default class Chart extends React.Component {
+class Chart extends React.Component {
   state = { activeDataIndex: -1 }
 
   setSelectedBar = activeDataIndex => {
@@ -29,6 +30,7 @@ export default class Chart extends React.Component {
         data,
         fillArea,
         height,
+        parentWidth,
         renderer,
         width,
       },
@@ -36,7 +38,7 @@ export default class Chart extends React.Component {
         activeDataIndex,
       }
     } = this;
-    const contentWidth = width - yAxisWidth - rightPadding;
+    const contentWidth = parentWidth - yAxisWidth - rightPadding;
     const contentHeight = height - topPadding - xAxisHeight;
     const xAxisTop = contentHeight + topPadding;
     const dataLength = getMultiChartDataLength(data);
@@ -49,6 +51,18 @@ export default class Chart extends React.Component {
     const yScale = scaleLinear({
       domain: dataExtent,
       rangeRound: [contentHeight, 0],
+    });
+
+    // this is a bit gross can probably just pass props through here
+    const rendered = React.createElement(this.props.renderer, {
+      colorMap,
+      data,
+      fillArea,
+      height: contentHeight,
+      xScale,
+      yScale,
+      selectedIndex: activeDataIndex,
+      width: contentWidth,
     });
 
     return (
@@ -73,17 +87,7 @@ export default class Chart extends React.Component {
             height={contentHeight}
             width={contentWidth}
           >
-            {/* this is a bit gross can probably just pass props through here */}
-            {React.createElement(this.props.renderer, {
-              colorMap,
-              data,
-              fillArea,
-              height: contentHeight,
-              xScale,
-              yScale,
-              selectedIndex: activeDataIndex,
-              width: contentWidth,
-            })}
+            {rendered}
           </Tooltipped>
         </Group>
         <Group
@@ -96,3 +100,5 @@ export default class Chart extends React.Component {
     );
   }
 }
+
+export default withParentSize(Chart);

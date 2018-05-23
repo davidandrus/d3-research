@@ -85,6 +85,10 @@ export default class Tooltipped extends React.Component {
           onMouseMove={this.performantMouseMove}
           onMouseLeave={this.handleMouseLeave}
         >
+          {/*
+            need all area to be hoverable not just graph 
+            regions hence the transparent backaground
+          */}
           <rect
             fill='red'
             fill-opacity='0'
