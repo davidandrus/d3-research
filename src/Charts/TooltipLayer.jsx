@@ -8,7 +8,7 @@ class TooltipLayer extends React.Component {
   }
 
   componentDidUpdate() {
-    this.updateBounds()
+    this.updateBounds();
   }
 
   bindMouseLayer = node => this.mouseLayer = node;
@@ -31,7 +31,14 @@ class TooltipLayer extends React.Component {
     const newLeft = xScale(nearestIndex);
 
     if (!tooltipOpen || tooltipLeft !== newLeft) {
-      showTooltip({ tooltipLeft: newLeft });
+      showTooltip({
+        tooltipLeft: newLeft,
+        tooltipData: {
+          current: data.map(chunk => chunk[nearestIndex]),
+          data,
+          index: nearestIndex,
+        }
+      });
     }
 
     // const activatedDataIndex = Math.round(getScaleX(this.props).invert(x));
@@ -51,6 +58,7 @@ class TooltipLayer extends React.Component {
       height,
       hideTooltip,
       left,
+      tooltipData,
       tooltipLeft,
       tooltipOpen,
       top,
@@ -85,7 +93,6 @@ class TooltipLayer extends React.Component {
 
     const tooltip = {
       background: 'rgba(255, 255, 255, .9)',
-      height: 200,
       position: 'absolute',
       left: 0,
       transition: 'transform .1s',
@@ -103,7 +110,9 @@ class TooltipLayer extends React.Component {
         {tooltipOpen && (
           <React.Fragment>
             <div style={mouseLine} />
-            <div style={tooltip} />
+            <div style={tooltip}>
+              <this.props.tooltipComponent {...tooltipData} />
+            </div>
           </React.Fragment>
         )}
       </div>

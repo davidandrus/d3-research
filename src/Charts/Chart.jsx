@@ -8,6 +8,7 @@ import { withParentSize } from '@vx/responsive';
 
 import { getMultiChartDataLength } from './helpers'
 import TooltipLayer from './TooltipLayer';
+import TooltipContent from './TooltipContent';
 import Bars from './Bars';
 
 const yAxisWidth = 50;
@@ -62,6 +63,7 @@ export default function Chart(WrappedComponent) {
             left={yAxisWidth}
             top={topPadding}
             xScale={xScale}
+            tooltipComponent={TooltipContent}
             width={contentWidth}
           />
           <svg
