@@ -3,7 +3,6 @@ import logo from './logo.svg';
 import './App.css';
 import BarChart from './Charts/BarChart';
 import LineChart from './Charts/LineChart';
-import VXTooltipTest from './Charts/VXTooltipTest';
 
 import range from 'lodash/range';
 import random from 'lodash/random';
@@ -31,20 +30,6 @@ class App extends Component {
   render() { 
     return (
       <div>
-        {/* <VXTooltipTest
-          colorMap={[
-            'blue',
-            'red',
-            'orange',
-            'green',
-            'yellow',
-            'pink'
-          ]}
-          data={this.state.lineData}
-          fillArea={true}
-          height={500}
-          width={1200}
-        /> */}
         <LineChart
           colorMap={[
             'blue',
