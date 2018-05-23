@@ -1,11 +1,6 @@
 import React from 'react';
 import { withTooltip } from '@vx/tooltip';
 import { Group } from '@vx/group';
-// import polyD3Multi from 'd3-selection-multi'; // polyfill to allow for attrs amongst other things
-// import { select as d3Select } from 'd3-selection';
-// import { scaleLinear } from 'd3-scale';
-
-// import TooltipContent from './TooltipContent';
 
 class TooltipLayer extends React.Component {
   
@@ -22,7 +17,6 @@ class TooltipLayer extends React.Component {
       linePos: x,
     });
 
-    console.log({ x });
 
     // const activatedDataIndex = Math.round(getScaleX(this.props).invert(x));
     // this.props.onUpdate(activatedDataIndex);
@@ -50,10 +44,11 @@ class TooltipLayer extends React.Component {
       },
     } = this;
 
-    
-
     const styles = {
+      alignItems: 'center',
+      display: 'flex',
       height,
+      justifyContent: 'center',
       left,
       position: 'absolute',
       top,
@@ -69,6 +64,14 @@ class TooltipLayer extends React.Component {
       top: 0,
     };
 
+    const tooltip = {
+      background: 'rgba(255, 255, 255, .9)',
+      height: 200,
+      position: 'absolute',
+      left: linePos + 10,
+      width: 400,
+    }
+
     return (
       <div
         onMouseMove={this.performantMouseMove}
@@ -76,6 +79,7 @@ class TooltipLayer extends React.Component {
         style={styles}
       >
         <div style={mouseLine} />
+        <div style={tooltip} />
       </div>
     )
   }
