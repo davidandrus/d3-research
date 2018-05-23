@@ -54,18 +54,6 @@ export default function Chart(WrappedComponent) {
         rangeRound: [contentHeight, 0],
       });
 
-      // this is a bit gross can probably just pass props through here
-      const componentProps = {
-        colorMap,
-        data,
-        fillArea,
-        height: contentHeight,
-        xScale,
-        yScale,
-        selectedIndex: activeDataIndex,
-        width: contentWidth,
-      };
-
       return (
         <svg
           height={height}
@@ -82,14 +70,22 @@ export default function Chart(WrappedComponent) {
             left={yAxisWidth}
             top={topPadding}
           >
+            <WrappedComponent
+              colorMap={colorMap}
+              data={data}
+              fillArea={fillArea}
+              height={contentHeight}
+              xScale={xScale}
+              yScale={yScale}
+              selectedIndex={activeDataIndex}
+              width={contentWidth}
+            />
             <Tooltipped
               onUpdate={this.setSelectedBar}
               data={data}
               height={contentHeight}
               width={contentWidth}
-            >
-            <WrappedComponent {...componentProps} />
-            </Tooltipped>
+           />
           </Group>
           <Group
             left={yAxisWidth}
