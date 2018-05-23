@@ -3,20 +3,26 @@ import { withTooltip } from '@vx/tooltip';
 import { Group } from '@vx/group';
 
 class TooltipLayer extends React.Component {
-  
-  state = { linePos: 0 }
+  componentDidMount() {
+    this.updateBounds();
+  }
+
+  componentDidUpdate() {
+    this.updateBounds()
+  }
+
+  bindMouseLayer = node => this.mouseLayer = node;
+
+  updateBounds = () => 
+    this.bounds = this.mouseLayer.getBoundingClientRect();
 
   handleMouseMove = (xPos) => {
     this.lastX = xPos;
-    
-    // this could be cached, but the dom could change around it
-    var bounds = this.mouseLayer.getBoundingClientRect();
-    var x = xPos - bounds.left;
+    var x = xPos - this.bounds.left;
 
-    this.setState({
-      linePos: x,
+    this.props.showTooltip({
+      tooltipLeft: x,
     });
-
 
     // const activatedDataIndex = Math.round(getScaleX(this.props).invert(x));
     // this.props.onUpdate(activatedDataIndex);
@@ -29,20 +35,17 @@ class TooltipLayer extends React.Component {
     }
   }
 
-  bindMouseLayer = node => this.mouseLayer = node;
 
   render() {
     const { 
-      props: {
-        height,
-        left,
-        top,
-        width,
-      },
-      state: {
-        linePos,
-      },
-    } = this;
+      height,
+      hideTooltip,
+      left,
+      tooltipLeft,
+      tooltipOpen,
+      top,
+      width,
+    } = this.props;
 
     const styles = {
       alignItems: 'center',
@@ -56,7 +59,8 @@ class TooltipLayer extends React.Component {
     };
 
     const mouseLine = {
-      left: linePos,
+      left: 0,
+      transform: `translateX(${tooltipLeft}px)`,
       height,
       width: 1,
       backgroundColor: 'black',
@@ -64,22 +68,34 @@ class TooltipLayer extends React.Component {
       top: 0,
     };
 
+    const xTrans = tooltipLeft < this.props.width / 2 
+      ? tooltipLeft + 20
+      : tooltipLeft - 300 - 20;
+    
+
     const tooltip = {
       background: 'rgba(255, 255, 255, .9)',
       height: 200,
       position: 'absolute',
-      left: linePos + 10,
-      width: 400,
+      left: 0,
+      transition: 'transform .1s',
+      transform: `translateX(${xTrans}px)`,
+      width: 300,
     }
 
     return (
       <div
         onMouseMove={this.performantMouseMove}
+        onMouseLeave={hideTooltip}
         ref={this.bindMouseLayer}
         style={styles}
       >
-        <div style={mouseLine} />
-        <div style={tooltip} />
+        {tooltipOpen && (
+          <React.Fragment>
+            <div style={mouseLine} />
+            <div style={tooltip} />
+          </React.Fragment>
+        )}
       </div>
     )
   }

@@ -9,7 +9,6 @@ function getFillColor(color) {
 }
 export default function Lines({ colorMap, data, fillArea, xScale, yScale }){
   const ChartComponent = fillArea === true ? AreaClosed : LinePath;
-  
   return (
     <Group>
       {transformMultiChartData(data).map((d, i) => (

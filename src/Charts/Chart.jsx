@@ -64,7 +64,7 @@ export default function Chart(WrappedComponent) {
           />
           <svg
             height={height}
-            width={width}
+            width={parentWidth}
           >
             <Group top={topPadding}>
               <AxisLeft
