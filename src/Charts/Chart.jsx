@@ -7,7 +7,7 @@ import { extent } from 'd3-array';
 import { withParentSize } from '@vx/responsive';
 
 import { getMultiChartDataLength } from './helpers'
-import Tooltipped from './Tooltipped';
+import TooltipLayer from './TooltipLayer';
 import Bars from './Bars';
 
 const yAxisWidth = 50;
@@ -55,45 +55,47 @@ export default function Chart(WrappedComponent) {
       });
 
       return (
-        <svg
-          height={height}
-          width={width}
-        >
-          <Group top={topPadding}>
-            <AxisLeft
-              scale={yScale}
-              left={yAxisWidth}
-              numTicks={5}
-            />
-          </Group>
-          <Group 
+        <div style={{position: 'relative'}}>
+          <TooltipLayer
+            height={contentHeight}
             left={yAxisWidth}
             top={topPadding}
+            width={contentWidth}
+          />
+          <svg
+            height={height}
+            width={width}
           >
-            <WrappedComponent
-              colorMap={colorMap}
-              data={data}
-              fillArea={fillArea}
-              height={contentHeight}
-              xScale={xScale}
-              yScale={yScale}
-              selectedIndex={activeDataIndex}
-              width={contentWidth}
-            />
-            <Tooltipped
-              onUpdate={this.setSelectedBar}
-              data={data}
-              height={contentHeight}
-              width={contentWidth}
-           />
-          </Group>
-          <Group
-            left={yAxisWidth}
-            top={xAxisTop}
-          >
-            <AxisBottom scale={xScale} />
-          </Group>
-        </svg>
+            <Group top={topPadding}>
+              <AxisLeft
+                scale={yScale}
+                left={yAxisWidth}
+                numTicks={5}
+              />
+            </Group>
+            <Group 
+              left={yAxisWidth}
+              top={topPadding}
+            >
+              <WrappedComponent
+                colorMap={colorMap}
+                data={data}
+                fillArea={fillArea}
+                height={contentHeight}
+                xScale={xScale}
+                yScale={yScale}
+                selectedIndex={activeDataIndex}
+                width={contentWidth}
+              />
+            </Group>
+            <Group
+              left={yAxisWidth}
+              top={xAxisTop}
+            >
+              <AxisBottom scale={xScale} />
+            </Group>
+          </svg>
+        </div>
       );
     }
   }

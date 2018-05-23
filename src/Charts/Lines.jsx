@@ -1,6 +1,5 @@
 import React from 'react';
 import Color from 'color';
-
 import { Group } from '@vx/group';
 import { AreaClosed, LinePath } from '@vx/shape';
 
@@ -9,9 +8,6 @@ function getFillColor(color) {
   return Color(color).alpha(.5).rgb().string();
 }
 export default function Lines({ colorMap, data, fillArea, xScale, yScale }){
-  console.log('renderingLines', {
-    colorMap, data, fillArea, xScale, yScale
-  });
   const ChartComponent = fillArea === true ? AreaClosed : LinePath;
   
   return (

@@ -13,7 +13,7 @@ function getUpdatedData(len, upperBound = 100) {
 }
 
 const getBarData = () => getUpdatedData(300);
-const getLineData = () => range(0, 1).map(() => getUpdatedData(3));
+const getLineData = () => range(0, 1).map(() => getUpdatedData(1000));
 
 class App extends Component {
   state = {
