@@ -57,9 +57,11 @@ export default function Chart(WrappedComponent) {
       return (
         <div style={{position: 'relative'}}>
           <TooltipLayer
+            data={data}
             height={contentHeight}
             left={yAxisWidth}
             top={topPadding}
+            xScale={xScale}
             width={contentWidth}
           />
           <svg
