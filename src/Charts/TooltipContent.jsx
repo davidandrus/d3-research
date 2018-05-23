@@ -38,6 +38,7 @@ const DOT_WRAPPER_STYLE = {
 
 const LEGEND_LABEL_STYLE = {
   flex: '1 0 180px',
+  wordWrap: 'break-word',
 };
 
 const METRIC_STYLE = {
@@ -52,6 +53,7 @@ const LEGEND_CELL_STYLE = {
 
 const TITLE_METRIC_STYLE = {
   padding: 5,
+  textAlign: 'right',
 };
 
 const getDotStyle = color => ({
@@ -105,23 +107,22 @@ function TooltipContent({ items, metricTitles, title, }) {
   );
 }
 
-export default function TooltipContentExtender() {
+export default function TooltipContentExtender({ current, index, ...rest }) {
   return (
     <TooltipContent
       metricTitles={[
         'Installs',
-        'Clicks',
       ]}
       items={[{
         color: 'blue',
         legend: 'IT works it really does, it should truncate eventually truncate me truncate me',
-        metrics: ['500,000', '1000'],
+        metrics: [current[0]],
       }, {
         color: 'red',
         legend: 'a short one',
-        metrics: ['10', '1000'],
+        metrics: [current[1]],
       }]}
-      title="It works yo"
+      title={`It works yo ${index}`}s
     />
   );
 }

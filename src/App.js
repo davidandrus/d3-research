@@ -49,7 +49,6 @@ class App extends Component {
           height={500}
           width={1200}
         />
-
         <button onClick={this.updateData}>updateData</button>
       </div>
     );
