@@ -16,13 +16,20 @@ const xAxisHeight = 50;
 const topPadding = 20;
 const rightPadding = 20;
 
-export default function Chart(WrappedComponent) {
-  class ChartWrapper extends React.Component {
-    state = { activeDataIndex: -1 }
+const hoverOverlay = {
+  position: 'absolute',
+  left: 0,
+  pointerEvents: 'none',
+  top: 0,
+  zIndex: 3,
+}
 
-    setSelectedBar = activeDataIndex => {
-      // @TODO - this is currently not very performant - figure out
-      this.setState({ activeDataIndex })
+export default function Chart(WrappedComponent, TooltipGraphSelection) {
+  class ChartWrapper extends React.Component {
+    state = { activeDataIndex: -1, tooltipInfo: null }
+
+    handleTooltipUpdate = (obj) => {
+      this.setState({ tooltipInfo: obj });
     }
 
     render() {
@@ -38,6 +45,7 @@ export default function Chart(WrappedComponent) {
         },
         state: {
           activeDataIndex,
+          tooltipInfo,
         }
       } = this;
       const contentWidth = parentWidth - yAxisWidth - rightPadding;
@@ -57,12 +65,28 @@ export default function Chart(WrappedComponent) {
 
       return (
         <div style={{position: 'relative'}}>
+          <svg
+            height={height}
+            style={hoverOverlay}
+            width={parentWidth}
+          >
+            <Group
+              left={yAxisWidth}
+              top={topPadding}
+            >
+              <TooltipGraphSelection
+                {...tooltipInfo}
+                colorMap={colorMap}
+              />
+            </Group>
+          </svg>
           <TooltipLayer
             data={data}
             height={contentHeight}
             left={yAxisWidth}
             top={topPadding}
             tooltipComponent={TooltipContent}
+            onUpdate={this.handleTooltipUpdate}
             xScale={xScale}
             yScale={yScale}
             width={contentWidth}
@@ -71,13 +95,6 @@ export default function Chart(WrappedComponent) {
             height={height}
             width={parentWidth}
           >
-            <Group top={topPadding}>
-              <AxisLeft
-                scale={yScale}
-                left={yAxisWidth}
-                numTicks={5}
-              />
-            </Group>
             <Group 
               left={yAxisWidth}
               top={topPadding}
@@ -91,6 +108,13 @@ export default function Chart(WrappedComponent) {
                 yScale={yScale}
                 selectedIndex={activeDataIndex}
                 width={contentWidth}
+              />
+            </Group>
+            <Group top={topPadding}>
+              <AxisLeft
+                scale={yScale}
+                left={yAxisWidth}
+                numTicks={5}
               />
             </Group>
             <Group

@@ -12,7 +12,7 @@ function getUpdatedData(len, upperBound = 100) {
 }
 
 const getBarData = () => getUpdatedData(300);
-const getLineData = () => range(0, 2).map(() => getUpdatedData(600));
+const getLineData = () => range(0, 2).map(() => getUpdatedData(30));
 
 class App extends Component {
   state = {
@@ -44,11 +44,13 @@ class App extends Component {
           height={500}
           width={1200}
         />
-        <BarChart
+        {/*
+          BarChart needs TooltipSelection
+          <BarChart
           data={this.state.barData}
           height={500}
           width={1200}
-        />
+        /> */}
         <button onClick={this.updateData}>updateData</button>
       </div>
     );

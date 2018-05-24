@@ -30,22 +30,26 @@ class TooltipLayer extends React.Component {
     const x = xPos - this.bounds.left;
     const nearestIndex = Math.round(xScale.invert(x));
     const newLeft = xScale(nearestIndex);
+    const tooltipData = {
+      current: data.map(chunk => chunk[nearestIndex]),
+      data,
+      index: nearestIndex,
+      xScale,
+      yScale,
+    };
 
     if (!tooltipOpen || tooltipLeft !== newLeft) {
       showTooltip({
         tooltipLeft: newLeft,
-        tooltipData: {
-          current: data.map(chunk => chunk[nearestIndex]),
-          data,
-          index: nearestIndex,
-          xScale,
-          yScale,
-        }
+        tooltipData,
       });
+      this.props.onUpdate(tooltipData);
     }
+  }
 
-    // const activatedDataIndex = Math.round(getScaleX(this.props).invert(x));
-    // this.props.onUpdate(activatedDataIndex);
+  hideTooltip = () => {
+    this.props.hideTooltip();
+    this.props.onUpdate({ index: -1})
   }
 
   performantMouseMove = e => {
@@ -77,6 +81,7 @@ class TooltipLayer extends React.Component {
       position: 'absolute',
       top,
       width,
+      zIndex: 2,
     };
 
     const mouseLine = {
@@ -85,6 +90,7 @@ class TooltipLayer extends React.Component {
       height,
       width: 1,
       backgroundColor: 'black',
+      opacity: .5,
       position: 'absolute',
       top: 0,
     };
@@ -106,7 +112,7 @@ class TooltipLayer extends React.Component {
     return (
       <div
         onMouseMove={this.performantMouseMove}
-        onMouseLeave={hideTooltip}
+        onMouseLeave={this.hideTooltip}
         ref={this.bindMouseLayer}
         style={styles}
       >

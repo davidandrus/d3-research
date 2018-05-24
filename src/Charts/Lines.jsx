@@ -11,19 +11,24 @@ export default function Lines({ colorMap, data, fillArea, xScale, yScale }){
   const ChartComponent = fillArea === true ? AreaClosed : LinePath;
   return (
     <Group>
-      {transformMultiChartData(data).map((d, i) => (
-        <ChartComponent
-          data={d}
-          fill={getFillColor(colorMap[i])}
-          stroke={colorMap[i]}
-          strokeWidth={1}
-          key={i}
-          x={datum => datum.index}
-          y={datum => datum.point}
-          xScale={xScale}
-          yScale={yScale}
-        />
-      ))}
+      {transformMultiChartData(data).map((d, i) => {
+        const fillColor = fillArea === true ? 
+          getFillColor(colorMap[i])
+          : undefined;
+        return (
+          <ChartComponent
+            data={d}
+            fill={fillColor}
+            stroke={colorMap[i]}
+            strokeWidth={1}
+            key={i}
+            x={datum => datum.index}
+            y={datum => datum.point}
+            xScale={xScale}
+            yScale={yScale}
+          />
+        );
+     })}
     </Group>
   );
 }

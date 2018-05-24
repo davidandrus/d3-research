@@ -107,7 +107,8 @@ function TooltipContent({ items, metricTitles, title, }) {
   );
 }
 
-export default function TooltipContentExtender({ current, index, ...rest }) {
+export default function TooltipContentExtender({ current = [], index, ...rest }) {
+  const [stat1, stat2] = current;
   return (
     <TooltipContent
       metricTitles={[
@@ -116,11 +117,11 @@ export default function TooltipContentExtender({ current, index, ...rest }) {
       items={[{
         color: 'blue',
         legend: 'IT works it really does, it should truncate eventually truncate me truncate me',
-        metrics: [current[0]],
+        metrics: [stat1],
       }, {
         color: 'red',
         legend: 'a short one',
-        metrics: [current[1]],
+        metrics: [stat2],
       }]}
       title={`It works yo ${index}`}s
     />
