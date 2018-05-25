@@ -14,7 +14,7 @@ import {
   labelTextColor,
   tickLabelColor,
   yAxisWidth,
-} from './constants';
+} from '../constants';
 
 // this is a bit funky since it is not exported from @vx/axis
 const tickLabelPropsLeft = {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TooltipContent from './TooltipContent';
+import { TooltipContent } from '../Tooltip';
 
 export default function TooltipContentExtender({ current = [], index, ...rest }) {
   const [stat1, stat2] = current;

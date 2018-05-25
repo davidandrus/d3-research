@@ -2,9 +2,9 @@ import React from 'react';
 import { withTooltip } from '@vx/tooltip';
 import { Group } from '@vx/group';
 
-import { mouseLineColor } from './constants';
+import { mouseLineColor } from '../constants';
 
-class TooltipLayer extends React.Component {
+class Layer extends React.Component {
   componentDidMount() {
     this.updateBounds();
   }
@@ -137,4 +137,4 @@ class TooltipLayer extends React.Component {
   }
 }
 
-export default withTooltip(TooltipLayer);
+export default withTooltip(Layer);

@@ -3,7 +3,7 @@ import Color from 'color';
 import { Group } from '@vx/group';
 import { AreaClosed, LinePath } from '@vx/shape';
 
-import { transformMultiChartData } from './helpers';
+import { transformMultiChartData } from '../helpers';
 function getFillColor(color) {
   return Color(color).alpha(.5).rgb().string();
 }

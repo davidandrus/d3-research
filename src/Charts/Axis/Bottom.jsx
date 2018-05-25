@@ -8,7 +8,7 @@ import {
   labelTickFontSize,
   tickLabelColor,
   yAxisWidth,
-} from './constants';
+} from '../constants';
 
 const tickLabelProps = {
   fill: tickLabelColor,

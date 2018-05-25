@@ -49,7 +49,7 @@ class App extends Component {
           width={1200}
         />
         {/*
-          BarChart needs TooltipSelection
+          BarChart needs TooltipSelection, as well as TooltipContent
           <BarChart
           data={this.state.barData}
           height={500}

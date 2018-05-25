@@ -7,10 +7,11 @@ import { extent } from 'd3-array';
 import { withParentSize } from '@vx/responsive';
 
 import { getMultiChartDataLength } from './helpers'
-import AxisBottom from './AxisBottom';
-import AxisLeft from './AxisLeft';
-import TooltipLayer from './TooltipLayer';
-import Bars from './Bars';
+import {
+  Bottom as AxisBottom,
+  Left as AxisLeft,
+} from './Axis';
+import { TooltipLayer } from './Tooltip';
 import {
   axisStroke,
   rightPadding,

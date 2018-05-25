@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const HEADER_ROW_STYLES = {
   backgroundColor: '#ddd',
   borderBottom: '1px solid black',
@@ -88,8 +87,8 @@ export default function TooltipContent({ items, metricTitles, title, }) {
                     <div style={getDotStyle(color)} /> 
                   </div>
                   <div style={LEGEND_LABEL_STYLE}>
-                    {legend.length > 55
-                      ? `${legend.substring(0, 52)}...`
+                    {legend.length > 65
+                      ? `${legend.substring(0, 62)}...`
                       : legend
                     }
                   </div>
