@@ -48,6 +48,7 @@ const METRIC_STYLE = {
 };
 
 const LEGEND_CELL_STYLE = {
+  maxWidth: 200,
   padding: 5,
 };
 

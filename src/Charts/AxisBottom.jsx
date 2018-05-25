@@ -16,7 +16,6 @@ const labelProps = {
   fontSize: 10,
 };
 
-
 export default function AxisBottom({ label, scale }) {
   return (
     <VXAxisBottom

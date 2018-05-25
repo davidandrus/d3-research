@@ -47,10 +47,10 @@ class TooltipLayer extends React.Component {
     }
   }
 
-  hideTooltip = () => {
-    this.props.hideTooltip();
-    this.props.onUpdate({ index: -1})
-  }
+  // hideTooltip = () => {
+  //   this.props.hideTooltip();
+  //   this.props.onUpdate({ index: -1})
+  // }
 
   performantMouseMove = e => {
     const { clientX } = e;
@@ -58,7 +58,6 @@ class TooltipLayer extends React.Component {
       window.requestAnimationFrame(() => this.handleMouseMove(clientX));
     }
   }
-
 
   render() {
     const { 
@@ -96,17 +95,23 @@ class TooltipLayer extends React.Component {
     };
 
     const xTrans = tooltipLeft < this.props.width / 2 
-      ? tooltipLeft + 20
-      : tooltipLeft - 300 - 20;
+      ? 0
+      : '-100%';
     
+    const trans2 = tooltipLeft < this.props.width / 2
+      ? '10px'
+      : '-10px';
 
     const tooltip = {
       background: 'rgba(255, 255, 255, .9)',
-      position: 'absolute',
+      transition: 'transform .2s',
+      transform: `translateX(${xTrans}) translateX(${trans2})`,
+    }
+
+    const tooltipWrapper = {
       left: 0,
-      transition: 'transform .1s',
-      transform: `translateX(${xTrans}px)`,
-      width: 300,
+      position: 'absolute',
+      transform: `translateX(${tooltipLeft}px)`,
     }
 
     return (
@@ -119,8 +124,10 @@ class TooltipLayer extends React.Component {
         {tooltipOpen && (
           <React.Fragment>
             <div style={mouseLine} />
-            <div style={tooltip}>
-              <this.props.tooltipComponent {...tooltipData} />
+            <div style={tooltipWrapper}>
+              <div style={tooltip}>
+                <this.props.tooltipComponent {...tooltipData} />
+              </div>
             </div>
           </React.Fragment>
         )}
