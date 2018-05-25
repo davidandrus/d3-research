@@ -1,20 +1,24 @@
 import React from 'react';
 import { scaleLinear } from '@vx/scale';
 import { Group } from '@vx/group';
-import { AxisBottom, AxisLeft } from '@vx/axis';
+
 import flatten from 'lodash/flatten';
 import { extent } from 'd3-array';
 import { withParentSize } from '@vx/responsive';
 
 import { getMultiChartDataLength } from './helpers'
+import AxisBottom from './AxisBottom';
+import AxisLeft from './AxisLeft';
 import TooltipLayer from './TooltipLayer';
 import TooltipContent from './TooltipContent';
 import Bars from './Bars';
-
-const yAxisWidth = 50;
-const xAxisHeight = 50;
-const topPadding = 20;
-const rightPadding = 20;
+import {
+  axisStroke,
+  rightPadding,
+  topPadding,
+  xAxisHeight,
+  yAxisWidth,
+} from './constants';
 
 const hoverOverlay = {
   position: 'absolute',
@@ -22,7 +26,7 @@ const hoverOverlay = {
   pointerEvents: 'none',
   top: 0,
   zIndex: 3,
-}
+};
 
 export default function Chart(WrappedComponent, TooltipGraphSelection) {
   class ChartWrapper extends React.Component {
@@ -35,6 +39,8 @@ export default function Chart(WrappedComponent, TooltipGraphSelection) {
     render() {
       const {
         props: {
+          axisBottomLabel,
+          axisLeftLabel,
           colorMap,
           data,
           fillArea,
@@ -113,15 +119,18 @@ export default function Chart(WrappedComponent, TooltipGraphSelection) {
             <Group top={topPadding}>
               <AxisLeft
                 scale={yScale}
+                label={axisLeftLabel}
                 left={yAxisWidth}
-                numTicks={5}
               />
             </Group>
             <Group
               left={yAxisWidth}
               top={xAxisTop}
             >
-              <AxisBottom scale={xScale} />
+              <AxisBottom
+                scale={xScale}
+                label={axisBottomLabel}
+              />
             </Group>
           </svg>
         </div>

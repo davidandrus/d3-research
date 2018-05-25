@@ -31,6 +31,8 @@ class App extends Component {
     return (
       <div>
         <LineChart
+          axisBottomLabel="Label Bottom"
+          axisLeftLabel="Label Left"
           colorMap={[
             'blue',
             'red',
