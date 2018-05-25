@@ -6,14 +6,14 @@ import { Group} from '@vx/group';
 import { Text } from '@vx/text';
 
 import {
-  axisStroke,
-  fontFamily,
-  labelFontSize,
-  labelLineHeight,
-  labelLineSpacing,
-  labelTextColor,
-  tickLabelColor,
-  yAxisWidth,
+  AXIS_STROKE,
+  FONT_FAMILY,
+  LABEL_FONT_SIZE,
+  LABEL_LINE_HEIGHT,
+  LABEL_LINE_SPACING,
+  LABEL_TEXT_COLOR,
+  TICK_LABEL_COLOR,
+  Y_AXIS_WIDTH,
 } from '../constants';
 
 // this is a bit funky since it is not exported from @vx/axis
@@ -21,9 +21,9 @@ const tickLabelPropsLeft = {
   dx: '-0.25em',
   dy: '0.25em',
   textAnchor: 'end',
-  fontFamily,
+  FONT_FAMILY,
   fontSize: 10,
-  fill: tickLabelColor,
+  fill: TICK_LABEL_COLOR,
 };
 
 const getTransform = labelY => `translate(-45, ${labelY}) rotate(-90)`;
@@ -65,9 +65,9 @@ export default class AxisLeft extends React.Component {
     const { scale } = this.props;
     const labelWidth = this.label.getBBox().width;
     const height = Math.max(...scale.range());
-    const labelY = (height / 2) + ((70 + labelLineHeight + labelLineSpacing) / 2);
-    this.line.setAttribute('x1', labelWidth + labelLineSpacing);
-    this.line.setAttribute('x2', labelWidth + labelLineSpacing + labelLineHeight);
+    const labelY = (height / 2) + ((70 + LABEL_LINE_HEIGHT + LABEL_LINE_SPACING) / 2);
+    this.line.setAttribute('x1', labelWidth + LABEL_LINE_SPACING);
+    this.line.setAttribute('x2', labelWidth + LABEL_LINE_SPACING+ LABEL_LINE_HEIGHT);
     this.group.setAttribute('transform', getTransform(labelY));
   }
 
@@ -79,11 +79,11 @@ export default class AxisLeft extends React.Component {
     } = this.props;
 
     return (
-      <Group left={yAxisWidth}>
+      <Group left={Y_AXIS_WIDTH}>
         <g ref={this.getGroup} transform={getTransform(0)}>
           <text
-            fontFamily={fontFamily}
-            fontSize={labelFontSize}
+            FONT_FAMILY={FONT_FAMILY}
+            fontSize={LABEL_FONT_SIZE}
             dy={3}
             x={0}
             y={0}
@@ -103,10 +103,10 @@ export default class AxisLeft extends React.Component {
         <VXAxisLeft
           scale={scale}
           numTicks={5}
-          stroke={axisStroke}
+          stroke={AXIS_STROKE}
           tickFormat={tickFormat}
           tickLabelProps={() => tickLabelPropsLeft}
-          tickStroke={axisStroke}
+          tickStroke={AXIS_STROKE}
         />
       </Group>
     );

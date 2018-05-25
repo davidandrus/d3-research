@@ -2,24 +2,24 @@ import React from 'react';
 import { AxisBottom as VXAxisBottom } from '@vx/axis';
 
 import {
-  axisStroke,
-  fontFamily,
-  labelFontSize,
-  labelTickFontSize,
-  tickLabelColor,
-  yAxisWidth,
+  AXIS_STROKE,
+  FONT_FAMILY,
+  LABEL_FONT_SIZE,
+  LABEL_TICK_FONT_SIZE,
+  TICK_LABEL_COLOR,
+  Y_AXIS_WIDTH,
 } from '../constants';
 
 const tickLabelProps = {
-  fill: tickLabelColor,
-  fontSize: labelTickFontSize,
-  fontFamily,
+  fill: TICK_LABEL_COLOR,
+  fontSize: LABEL_TICK_FONT_SIZE,
+  FONT_FAMILY,
   textAnchor: 'middle',
 };
 
 const labelProps = {
-  fontFamily,
-  fontSize: labelFontSize,
+  FONT_FAMILY,
+  fontSize: LABEL_FONT_SIZE,
 };
 
 export default function AxisBottom({ label, scale, tickFormat }) {
@@ -28,10 +28,11 @@ export default function AxisBottom({ label, scale, tickFormat }) {
       label={label}
       labelProps={labelProps}
       scale={scale}
-      stroke={axisStroke}
+      stroke={AXIS_STROKE}
       tickFormat={tickFormat}
       tickLabelProps={() => tickLabelProps}
-      tickStroke={axisStroke}
+      tickStroke={AXIS_STROKE}
+      numTicks={30}
     />
   )
 }

@@ -13,11 +13,11 @@ import {
 } from './Axis';
 import { TooltipLayer } from './Tooltip';
 import {
-  axisStroke,
-  rightPadding,
-  topPadding,
-  xAxisHeight,
-  yAxisWidth,
+  AXIS_STROKE,
+  RIGHT_PADDING,
+  TOP_PADDING,
+  X_AXIS_HEIGHT,
+  Y_AXIS_WIDTH,
 } from './constants';
 
 const hoverOverlay = {
@@ -56,9 +56,9 @@ export default function Chart(WrappedComponent, TooltipGraphSelection, TooltipCo
           tooltipInfo,
         }
       } = this;
-      const contentWidth = parentWidth - yAxisWidth - rightPadding;
-      const contentHeight = height - topPadding - xAxisHeight;
-      const xAxisTop = contentHeight + topPadding;
+      const contentWidth = parentWidth - Y_AXIS_WIDTH - RIGHT_PADDING;
+      const contentHeight = height - TOP_PADDING - X_AXIS_HEIGHT;
+      const xAxisTop = contentHeight + TOP_PADDING;
       const dataLength = getMultiChartDataLength(data);
       const dataExtent = extent(flatten(data));
 
@@ -79,8 +79,8 @@ export default function Chart(WrappedComponent, TooltipGraphSelection, TooltipCo
             width={parentWidth}
           >
             <Group
-              left={yAxisWidth}
-              top={topPadding}
+              left={Y_AXIS_WIDTH}
+              top={TOP_PADDING}
             >
               <TooltipGraphSelection
                 {...tooltipInfo}
@@ -91,8 +91,8 @@ export default function Chart(WrappedComponent, TooltipGraphSelection, TooltipCo
           <TooltipLayer
             data={data}
             height={contentHeight}
-            left={yAxisWidth}
-            top={topPadding}
+            left={Y_AXIS_WIDTH}
+            top={TOP_PADDING}
             tooltipComponent={TooltipContent}
             onUpdate={this.handleTooltipUpdate}
             xScale={xScale}
@@ -104,8 +104,8 @@ export default function Chart(WrappedComponent, TooltipGraphSelection, TooltipCo
             width={parentWidth}
           >
             <Group 
-              left={yAxisWidth}
-              top={topPadding}
+              left={Y_AXIS_WIDTH}
+              top={TOP_PADDING}
             >
               <WrappedComponent
                 colorMap={colorMap}
@@ -118,16 +118,16 @@ export default function Chart(WrappedComponent, TooltipGraphSelection, TooltipCo
                 width={contentWidth}
               />
             </Group>
-            <Group top={topPadding}>
+            <Group top={TOP_PADDING}>
               <AxisLeft
                 scale={yScale}
                 label={axisLeftLabel}
-                left={yAxisWidth}
+                left={Y_AXIS_WIDTH}
                 tickFormat={tickFormatLeft}
               />
             </Group>
             <Group
-              left={yAxisWidth}
+              left={Y_AXIS_WIDTH}
               top={xAxisTop}
             >
               <AxisBottom

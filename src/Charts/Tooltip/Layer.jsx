@@ -2,7 +2,7 @@ import React from 'react';
 import { withTooltip } from '@vx/tooltip';
 import { Group } from '@vx/group';
 
-import { mouseLineColor } from '../constants';
+import { MOUSE_LINE_COLOR } from '../constants';
 
 class Layer extends React.Component {
   componentDidMount() {
@@ -86,7 +86,7 @@ class Layer extends React.Component {
     };
 
     const mouseLine = {
-      backgroundColor: mouseLineColor,
+      backgroundColor: MOUSE_LINE_COLOR,
       left: 0,
       transform: `translateX(${tooltipLeft}px)`,
       height,
