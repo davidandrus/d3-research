@@ -2,6 +2,8 @@ import React from 'react';
 import { withTooltip } from '@vx/tooltip';
 import { Group } from '@vx/group';
 
+import { mouseLineColor } from './constants';
+
 class TooltipLayer extends React.Component {
   componentDidMount() {
     this.updateBounds();
@@ -84,12 +86,11 @@ class TooltipLayer extends React.Component {
     };
 
     const mouseLine = {
+      backgroundColor: mouseLineColor,
       left: 0,
       transform: `translateX(${tooltipLeft}px)`,
       height,
       width: 1,
-      backgroundColor: 'black',
-      opacity: .5,
       position: 'absolute',
       top: 0,
     };

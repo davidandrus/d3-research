@@ -10,5 +10,4 @@ export const labelTextColor = 'blue';
 export const fontFamily = 'arial';
 export const labelTickFontSize = 10;
 export const labelFontSize = 10;
-
-
+export const mouseLineColor = 'rgba(0, 0, 0, .3)';

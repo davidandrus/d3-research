@@ -10,7 +10,6 @@ import { getMultiChartDataLength } from './helpers'
 import AxisBottom from './AxisBottom';
 import AxisLeft from './AxisLeft';
 import TooltipLayer from './TooltipLayer';
-import TooltipContent from './TooltipContent';
 import Bars from './Bars';
 import {
   axisStroke,
@@ -28,7 +27,7 @@ const hoverOverlay = {
   zIndex: 3,
 };
 
-export default function Chart(WrappedComponent, TooltipGraphSelection) {
+export default function Chart(WrappedComponent, TooltipGraphSelection, TooltipContent) {
   class ChartWrapper extends React.Component {
     state = { activeDataIndex: -1, tooltipInfo: null }
 

@@ -60,7 +60,7 @@ const getDotStyle = color => ({
   backgroundColor: color,
 });
 
-function TooltipContent({ items, metricTitles, title, }) {
+export default function TooltipContent({ items, metricTitles, title, }) {
   return (
     <div>
       <table style={TABLE_STYLES}>
@@ -103,26 +103,5 @@ function TooltipContent({ items, metricTitles, title, }) {
         </tbody>
       </table>
     </div>
-  );
-}
-
-export default function TooltipContentExtender({ current = [], index, ...rest }) {
-  const [stat1, stat2] = current;
-  return (
-    <TooltipContent
-      metricTitles={[
-        'Installs',
-      ]}
-      items={[{
-        color: 'blue',
-        legend: 'IT works it really does, it should truncate eventually truncate me truncate me',
-        metrics: [stat1],
-      }, {
-        color: 'red',
-        legend: 'a short one',
-        metrics: [stat2],
-      }]}
-      title={`It works yo ${index}`}s
-    />
   );
 }
