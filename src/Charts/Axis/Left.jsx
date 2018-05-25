@@ -21,7 +21,7 @@ const tickLabelPropsLeft = {
   dx: '-0.25em',
   dy: '0.25em',
   textAnchor: 'end',
-  FONT_FAMILY,
+  fontFamily: FONT_FAMILY,
   fontSize: 10,
   fill: TICK_LABEL_COLOR,
 };
@@ -82,7 +82,7 @@ export default class AxisLeft extends React.Component {
       <Group left={Y_AXIS_WIDTH}>
         <g ref={this.getGroup} transform={getTransform(0)}>
           <text
-            FONT_FAMILY={FONT_FAMILY}
+            fontFamily={FONT_FAMILY}
             fontSize={LABEL_FONT_SIZE}
             dy={3}
             x={0}

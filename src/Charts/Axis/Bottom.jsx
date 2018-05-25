@@ -13,12 +13,12 @@ import {
 const tickLabelProps = {
   fill: TICK_LABEL_COLOR,
   fontSize: LABEL_TICK_FONT_SIZE,
-  FONT_FAMILY,
+  fontFamily: FONT_FAMILY,
   textAnchor: 'middle',
 };
 
 const labelProps = {
-  FONT_FAMILY,
+  fontFamily: FONT_FAMILY,
   fontSize: LABEL_FONT_SIZE,
 };
 
