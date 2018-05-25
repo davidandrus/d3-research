@@ -47,10 +47,10 @@ class TooltipLayer extends React.Component {
     }
   }
 
-  // hideTooltip = () => {
-  //   this.props.hideTooltip();
-  //   this.props.onUpdate({ index: -1})
-  // }
+  hideTooltip = () => {
+    this.props.hideTooltip();
+    this.props.onUpdate({ index: -1})
+  }
 
   performantMouseMove = e => {
     const { clientX } = e;

@@ -47,6 +47,8 @@ export default function Chart(WrappedComponent, TooltipGraphSelection) {
           height,
           parentWidth,
           renderer,
+          tickFormatBottom,
+          tickFormatLeft,
           width,
         },
         state: {
@@ -121,6 +123,7 @@ export default function Chart(WrappedComponent, TooltipGraphSelection) {
                 scale={yScale}
                 label={axisLeftLabel}
                 left={yAxisWidth}
+                tickFormat={tickFormatLeft}
               />
             </Group>
             <Group
@@ -130,6 +133,7 @@ export default function Chart(WrappedComponent, TooltipGraphSelection) {
               <AxisBottom
                 scale={xScale}
                 label={axisBottomLabel}
+                tickFormat={tickFormatBottom}
               />
             </Group>
           </svg>

@@ -3,26 +3,33 @@ import { AxisBottom as VXAxisBottom } from '@vx/axis';
 
 import {
   axisStroke,
+  fontFamily,
+  labelFontSize,
+  labelTickFontSize,
+  tickLabelColor,
   yAxisWidth,
 } from './constants';
 
 const tickLabelProps = {
-  fill: 'red',
-  fontSize: 10,
+  fill: tickLabelColor,
+  fontSize: labelTickFontSize,
+  fontFamily,
   textAnchor: 'middle',
 };
 
 const labelProps = {
-  fontSize: 10,
+  fontFamily,
+  fontSize: labelFontSize,
 };
 
-export default function AxisBottom({ label, scale }) {
+export default function AxisBottom({ label, scale, tickFormat }) {
   return (
     <VXAxisBottom
       label={label}
       labelProps={labelProps}
       scale={scale}
       stroke={axisStroke}
+      tickFormat={tickFormat}
       tickLabelProps={() => tickLabelProps}
       tickStroke={axisStroke}
     />

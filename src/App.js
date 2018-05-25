@@ -12,7 +12,7 @@ function getUpdatedData(len, upperBound = 100) {
 }
 
 const getBarData = () => getUpdatedData(300);
-const getLineData = () => range(0, 2).map(() => getUpdatedData(30));
+const getLineData = () => range(0, 2).map(() => getUpdatedData(600));
 
 class App extends Component {
   state = {
@@ -44,6 +44,8 @@ class App extends Component {
           data={this.state.lineData}
           fillArea={true}
           height={500}
+          // tickFormatLeft={(val, i) => `${val}:)`}
+          // tickFormatBottom={(val, i) => `${val}:)`}
           width={1200}
         />
         {/*

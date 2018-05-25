@@ -1,4 +1,3 @@
-// @TODO - this could probably be improved alot, right now it is a bit gross
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 import { AxisLeft as VXAxisLeft} from '@vx/axis';
@@ -8,8 +7,12 @@ import { Text } from '@vx/text';
 
 import {
   axisStroke,
+  fontFamily,
+  labelFontSize,
   labelLineHeight,
   labelLineSpacing,
+  labelTextColor,
+  tickLabelColor,
   yAxisWidth,
 } from './constants';
 
@@ -18,9 +21,9 @@ const tickLabelPropsLeft = {
   dx: '-0.25em',
   dy: '0.25em',
   textAnchor: 'end',
-  fontFamily: 'Arial',
+  fontFamily,
   fontSize: 10,
-  fill: 'red'
+  fill: tickLabelColor,
 };
 
 const getTransform = labelY => `translate(-45, ${labelY}) rotate(-90)`;
@@ -56,7 +59,8 @@ export default class AxisLeft extends React.Component {
   getGroup = (group) => {
     this._group = group;
   }
-
+  
+  // labels need to be centered based on their rendered size, which is why this is necessary
   updatePositions = () => {
     const { scale } = this.props;
     const labelWidth = this.label.getBBox().width;
@@ -68,18 +72,22 @@ export default class AxisLeft extends React.Component {
   }
 
   render() {
-    const { label, scale } = this.props;
+    const {
+      label,
+      scale,
+      tickFormat,
+    } = this.props;
 
     return (
       <Group left={yAxisWidth}>
         <g ref={this.getGroup} transform={getTransform(0)}>
           <text
-            fontSize='12'
+            fontFamily={fontFamily}
+            fontSize={labelFontSize}
             dy={3}
             x={0}
             y={0}
             ref={this.getLabel}
-            verticalAnchor="end"
           >
             {label}
           </text>
@@ -91,12 +99,12 @@ export default class AxisLeft extends React.Component {
             y2={0}
             stroke="black"
           />
-
         </g>
         <VXAxisLeft
           scale={scale}
           numTicks={5}
           stroke={axisStroke}
+          tickFormat={tickFormat}
           tickLabelProps={() => tickLabelPropsLeft}
           tickStroke={axisStroke}
         />

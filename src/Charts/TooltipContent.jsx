@@ -10,8 +10,6 @@ const HEADER_ROW_STYLES = {
 const TABLE_STYLES = {
   borderCollapse: 'collapse',
   fontSize: 11,
-  // cellPadding: 0,
-  // cellSpacing: 0,
   width: '100%', 
 };
 
